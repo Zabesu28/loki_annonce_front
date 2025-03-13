@@ -1,0 +1,37 @@
+.page {
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.questList {
+  display: flex;
+  flex-wrap: wrap;         /* Permet aux éléments de s'enrouler sur plusieurs lignes */
+  gap: 20px;               /* Espacement entre les éléments */
+}
+
+.questItem {
+  flex: 1 1 calc(33.333% - 20px);  /* Chaque élément prend environ 33% de la largeur, avec un espacement de 20px */
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;  /* S'assure que le padding n'ajoute pas de largeur supplémentaire */
+}
+
+.questItem h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #345c94;
+}
+
+.questItem p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.category {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #345c94;  /* Couleur bleu pour la catégorie */
+  margin-top: 10px;
+}
