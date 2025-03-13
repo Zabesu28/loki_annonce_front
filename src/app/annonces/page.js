@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import styles from "./annonces.module.css"; // Assurez-vous d'avoir des styles appropriés
 import Image from 'next/image';
-// import { getQuests } from '../services/api';
+import { getQuests } from '../services/api';
 import Link from 'next/link';
 
 export default function Annonces() {
@@ -15,13 +15,8 @@ export default function Annonces() {
   useEffect(() => {
     const fetchQuests = async () => {
       try {
-        // const data = await getQuests(); // Appel à l'API
-        setQuests([
-          { id: 1, title: "Chasser un Rathalos" },
-          { id: 2, title: "Quête d'herboriste" },
-          { id: 3, title: "Chasser un Diablos" },
-          // Ajoute d'autres quêtes ici...
-        ]); // Stocke les données des quêtes dans l'état
+        const data = await getQuests(); // Appel à l'API
+        setQuests(data);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         setError('Une erreur est survenue lors de la récupération des quêtes');
@@ -62,6 +57,7 @@ export default function Annonces() {
             <h3>{quest.title}</h3>
             <p>{quest.description}</p>
             <p className={styles.category}>Type de quête : {quest.category}</p>
+            <p className={styles.category}>Créée par : {quest.createdBy}</p>
           </li>
           </Link>
         ))}

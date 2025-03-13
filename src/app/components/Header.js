@@ -14,8 +14,8 @@ export default function Header() {
       </div>
       <nav className="nav">
         <ul>
-          <li><Link href="/">Accueil</Link></li>
           <li><Link href="/annonces">Annonces</Link></li>
+          <li><Link href="/annonces/create">Créer une annonce</Link></li>
           <li><Link href="/profil">Profil</Link></li>
           <li><Link href="/contact">Contact</Link></li>
         </ul>

@@ -15,7 +15,6 @@ export default function AnnonceDetail({ params }) {
         setLoading(true);
         setError(null);  // Reset l'erreur
         
-        // Attendre que `params` soit disponible
         if (params?.id) {
           const questData = await getQuestById(params.id);  // Utiliser l'ID pour récupérer les données de la quête
           setQuest(questData);
@@ -47,6 +46,8 @@ export default function AnnonceDetail({ params }) {
     <div>
       <h1>{quest.title}</h1>
       <p>{quest.description}</p>
+      <p className={styles.category}>Type de quête : {quest.category}</p>
+      <p className={styles.category}>Créée par : {quest.createdBy}</p>
       <Image src={quest.image} alt={quest.title} />
     </div>
   );

@@ -4,6 +4,7 @@
 }
 
 .questList {
+  list-style: none;
   display: flex;
   flex-wrap: wrap;         /* Permet aux éléments de s'enrouler sur plusieurs lignes */
   gap: 20px;               /* Espacement entre les éléments */

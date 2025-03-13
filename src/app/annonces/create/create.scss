@@ -1,0 +1,76 @@
+.create-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  
+    h2 {
+      color: #345c94;
+      margin-bottom: 15px;
+    }
+  
+    .message {
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #27ae60;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  
+    .form-group {
+      text-align: left;
+  
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        color: #2c3e50;
+      }
+  
+      input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border 0.3s ease;
+  
+        &:focus {
+          border-color: #345c94;
+          outline: none;
+        }
+      }
+  
+      textarea {
+        height: 80px;
+        resize: none;
+      }
+    }
+  
+    button {
+      background: #345c94;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+  
+      &:hover {
+        background: #2c4d7f;
+      }
+  
+      &:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
