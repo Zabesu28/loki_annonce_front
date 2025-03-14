@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export const getQuests = async () => {
   try {
-    const token = sessionStorage.getItem('token'); // Ou récupère-le depuis un cookie, etc.
-    
+    const token = sessionStorage.getItem('token');
+
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/annonces`, {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -129,7 +129,6 @@ export const logoutUser = async () => {
         'Authorization': `Bearer ${token}`
       },
     });
-    sessionStorage.clear();
     
     return response.data;
   } catch (error) {

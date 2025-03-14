@@ -20,6 +20,7 @@ export default function Connexion() {
 
   useEffect(() => {
     if(sessionStorage.getItem("token")){
+      router.refresh()
       router.push("/annonces");
     }
 }, [router]);

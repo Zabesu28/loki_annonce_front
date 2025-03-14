@@ -22,13 +22,14 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     const response = await logoutUser(); 
-    window.location.reload()
     if (response) {
+      sessionStorage.clear()
+      setIsLoggedIn(false);
+      setIsAdmin(false);
+      router.refresh(); // Recharge la page Next.js de manière optimisée
       router.push('/connexion');
-    } else {
-    }
+    } 
   } catch (error) {
-    setStatus('Erreur lors de la connexion');
     console.error('Erreur :', error);
   }
 };

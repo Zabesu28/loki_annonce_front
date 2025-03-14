@@ -18,8 +18,9 @@ export default function Annonces() {
         let data = await getQuests();
 
         if (sessionStorage.getItem("roles").includes("user")) {
-          data = data.filter(
-            (q) => q.createdBy === sessionStorage.getItem("email")
+          console.log(data[0].users[0])
+          data = data.filter((q) => 
+            q.users && q.users.some(user => user.email === sessionStorage.getItem("email"))
           );
         }
 
@@ -62,7 +63,7 @@ export default function Annonces() {
             <Link key={quest.id} href={`/annonces/${quest.id}`}>
               <li className={styles.questItem}>
                 <Image
-                  // src={quest.image_url}
+                  src={quest.image_url}
                   alt={quest.title}
                   width={300}
                   height={200}
