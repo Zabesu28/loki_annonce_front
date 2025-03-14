@@ -1,46 +1,69 @@
-
 .inscriptionContainer {
-    padding: 20px;
-    background-color: #f5f5f5;
-    max-width: 400px;
-    margin: 0 auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .inscriptionContainer h2 {
-    color: #345c94;
-    font-size: 24px;
-    text-align: center;
-  }
-  
-  .inscriptionContainer .statusMessage {
-    color: #d6aa81;
-    text-align: center;
-  }
-  
-  .inscriptionContainer .inscriptionForm {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .inscriptionContainer .inscriptionForm input {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-  }
-  
-  .inscriptionContainer .inscriptionForm button {
-    padding: 10px;
-    background-color: #345c94;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .inscriptionContainer .inscriptionForm button:hover {
-    background-color: #2d4b7c;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f7f7f7;
+  font-family: Arial, sans-serif;
+}
+
+.inscriptionTitle {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #345c94;
+}
+
+.statusMessage {
+  color: #d9534f;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.inscriptionForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.inscriptionForm label {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.inscriptionForm input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.inscriptionForm input:focus {
+  border-color: #345c94;
+  outline: none;
+}
+
+.inscriptionForm button {
+  padding: 10px;
+  background-color: #345c94;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.inscriptionForm button:hover {
+  background-color: #2a4c74;
+}

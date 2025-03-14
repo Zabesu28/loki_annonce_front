@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from 'react';
-import { registerUser } from '../services/api';  // Fonction à créer dans le backend
-import styles from './inscription.module.css';
+import { useState } from "react";
+import { registerUser } from "../services/api"; // Fonction à créer dans le backend
+import styles from "./inscription.module.css";
+import Link from "next/link";
 
 export default function Inscription() {
   const [formData, setFormData] = useState({
-    email: '',
-    pseudo: '',
-    password: '',
+    email: "",
+    name: "",
+    password: "",
   });
   const [status, setStatus] = useState(null);
 
@@ -19,16 +20,16 @@ export default function Inscription() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await registerUser(formData);  // Appel à l'API pour créer l'utilisateur
-      if (response.success) {
-        setStatus('Inscription réussie !');
-        setFormData({ email: '', pseudo: '', password: '' });
+      const response = await registerUser(formData); // Appel à l'API pour créer l'utilisateur
+      if (response.message) {
+        setStatus(response.message);
+        setFormData({ email: "", name: "", password: "" });
       } else {
-        setStatus('Échec de l\'inscription');
+        setStatus("Échec de l'inscription");
       }
     } catch (error) {
-      setStatus('Erreur lors de l\'inscription');
-      console.error('Erreur :', error);
+      setStatus("Erreur lors de l'inscription");
+      console.error("Erreur :", error);
     }
   };
 
@@ -50,8 +51,8 @@ export default function Inscription() {
         <label>Pseudo :</label>
         <input
           type="text"
-          name="pseudo"
-          value={formData.pseudo}
+          name="name"
+          value={formData.name}
           onChange={handleChange}
           required
         />
@@ -64,8 +65,12 @@ export default function Inscription() {
           onChange={handleChange}
           required
         />
-
-        <button type="submit">Inscription</button>
+        <div>
+          <button type="submit">Inscription</button>
+          <Link href="/connexion">
+            <button className="btn">Se connecter</button>
+          </Link>
+        </div>
       </form>
     </div>
   );

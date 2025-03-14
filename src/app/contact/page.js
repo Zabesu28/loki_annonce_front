@@ -7,7 +7,7 @@ import styles from './contact.module.css';
 export default function ContactUser() {
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
-    recipient: '',
+    email: '',
     subject: '',
     message: '',
   });
@@ -36,7 +36,7 @@ export default function ContactUser() {
     try {
       await sendContactEmail(formData);
       setStatus('Email envoyé avec succès !');
-      setFormData({ recipient: '', subject: '', message: '' });
+      setFormData({ email: '', subject: '', message: '' });
     } catch (error) {
       setStatus("Échec de l'envoi du mail.");
       console.error('Erreur :', error);
@@ -49,8 +49,8 @@ export default function ContactUser() {
       {status && <p className={styles.statusMessage}>{status}</p>}
 
       <form onSubmit={handleSubmit} className={styles.contactForm}>
-        <label>Utilisateur :</label>
-        <select name="recipient" value={formData.recipient} onChange={handleChange} required>
+        <label>Utilisateur</label>
+        <select name="email" value={formData.email} onChange={handleChange} required>
           <option value="">Sélectionnez un utilisateur</option>
           {users.map((user) => (
             <option key={user.id} value={user.email}>
@@ -59,10 +59,10 @@ export default function ContactUser() {
           ))}
         </select>
 
-        <label>Objet du mail :</label>
+        <label>Objet du mail</label>
         <input type="text" name="subject" value={formData.subject} onChange={handleChange} required />
 
-        <label>Message :</label>
+        <label>Message</label>
         <textarea name="message" value={formData.message} onChange={handleChange} required />
 
         <button type="submit">Envoyer</button>

@@ -10,6 +10,7 @@ export default function CreateAnnonce() {
     description: "",
     category: "chasse", // Valeur par défaut
     image: null,
+    emailUser : sessionStorage.getItem("email")
   });
 
   const [loading, setLoading] = useState(false);
@@ -37,7 +38,7 @@ export default function CreateAnnonce() {
         title: "",
         description: "",
         category: "chasse",
-        image: "",
+        image: null,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {

@@ -1,30 +1,55 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import "./Header.css"; // Assurez-vous d'avoir un fichier CSS
+import { logoutUser } from '../services/api';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
-  const [isLoggedIn] = useState(false); // Simule la connexion
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isAdmin, setIsAdmin] = useState(false); 
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsLoggedIn(sessionStorage.getItem("token") != null ? true : false);
+    if(isLoggedIn){
+      setIsAdmin(sessionStorage.getItem("roles").includes("admin") ? true : false);
+    }
+}, [isLoggedIn]); 
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await logoutUser(); 
+    window.location.reload()
+    if (response) {
+      router.push('/connexion');
+    } else {
+    }
+  } catch (error) {
+    setStatus('Erreur lors de la connexion');
+    console.error('Erreur :', error);
+  }
+};
 
   return (
     <header className="header">
       <div className="logo">
         <Link href="/">🏹 Monster Quêtes</Link>
       </div>
-      <nav className="nav">
+      {isLoggedIn ? (<nav className="nav">
         <ul>
           <li><Link href="/annonces">Annonces</Link></li>
           <li><Link href="/annonces/create">Créer une annonce</Link></li>
-          <li><Link href="/profil">Profil</Link></li>
-          <li><Link href="/contact">Contact</Link></li>
+          {isAdmin ? (<li><Link href="/contact">Contact</Link></li>) : <></>}
         </ul>
-      </nav>
+      </nav>) : <></>}
       <div className="auth">
         {isLoggedIn ? (
-          <button className="btn">Mon Compte</button>
+          <button className="btn" onClick={handleSubmit}>Se déconnecter</button>
         ) : (
-          <button className="btn">Se connecter</button>
+          <Link href="/connexion"><button className="btn">Se connecter</button></Link>
         )}
       </div>
     </header>

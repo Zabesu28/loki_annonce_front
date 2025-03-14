@@ -1,29 +1,34 @@
+import axios from 'axios';
+
 export const getQuests = async () => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL + "/annonces"; // Correction URL
-    const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch quests");
-    }
-
-    return await response.json();
+    const token = sessionStorage.getItem('token'); // Ou récupère-le depuis un cookie, etc.
+    
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/annonces`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
   } catch (error) {
-    console.error("Error fetching quests:", error);
+    console.error('Erreur lors de la récupération des annonces :', error);
     throw error;
   }
 };
 
 export const getQuestById = async (id) => {
+
+
   try {
-    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/annonces/${id}`; // Correction URL avec annonces/
-    const response = await fetch(apiUrl);
+    const token = sessionStorage.getItem('token');
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/annonces/${id}`;
+    const response = await axios.get(apiUrl, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }); 
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch quest");
-    }
-
-    return await response.json();
+    return response.data;
   } catch (error) {
     console.error("Error fetching quest:", error);
     throw error;
@@ -32,21 +37,16 @@ export const getQuestById = async (id) => {
 
 export const createQuest = async (questData) => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL + "/annonces"; // URL pour l'ajout
-
-    const response = await fetch(apiUrl, {
-      method: "POST",
+    const token = sessionStorage.getItem('token');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL + "/annonces";
+    const response = await axios.post(apiUrl, questData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
+        'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(questData),
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to create quest");
-    }
-
-    return await response.json();
+    return response.data;
   } catch (error) {
     console.error("Error creating quest:", error);
     throw error;
@@ -55,14 +55,15 @@ export const createQuest = async (questData) => {
 
 export const getUsers = async () => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL + "/users"; // URL pour récupérer tous les utilisateurs
-    const response = await fetch(apiUrl);
+    const token = sessionStorage.getItem('token');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL + "/liste-users";
+    const response = await axios.get(apiUrl, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }); // Utilisation de l'instance axios
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch users");
-    }
-
-    return await response.json();  // Retourne la liste des utilisateurs
+    return response.data;
   } catch (error) {
     console.error("Error fetching users:", error);
     throw error;
@@ -71,21 +72,16 @@ export const getUsers = async () => {
 
 export const sendContactEmail = async (emailData) => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL + "/contact"; // URL pour envoyer l'email au back-end
-
-    const response = await fetch(apiUrl, {
-      method: "POST",
+    const token = sessionStorage.getItem('token');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL + "/send-mail";
+    const response = await axios.post(apiUrl, emailData, {
       headers: {
         "Content-Type": "application/json",
+         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(emailData),
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to send contact email");
-    }
-
-    return await response.json();  // Retourne la confirmation de l'envoi de l'email
+    return response.data;
   } catch (error) {
     console.error("Error sending contact email:", error);
     throw error;
@@ -94,8 +90,12 @@ export const sendContactEmail = async (emailData) => {
 
 export const registerUser = async (userData) => {
   try {
-    const response = await axios.post( process.env.NEXT_PUBLIC_API_URL + '/register', userData);  // Envoie de la requête POST avec les données utilisateur
-    return response.data;  // Retourne les données retournées par l'API (ex: message de succès)
+    const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/register', userData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
   } catch (error) {
     console.error("Erreur lors de l'envoi de l'inscription :", error);
     throw error;
@@ -104,8 +104,34 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (credentials) => {
   try {
-    const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/login', credentials);  // Envoie de la requête POST avec les données de connexion
-    return response.data;  // Retourne les données retournées par l'API (ex: message de succès ou token)
+    const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/login', credentials, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    sessionStorage.setItem('token', response.data.token)
+    sessionStorage.setItem('name', response.data.name)
+    sessionStorage.setItem('email', response.data.email)
+    sessionStorage.setItem('roles', response.data.roles)
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de la connexion :", error);
+    throw error;
+  }
+};
+
+export const logoutUser = async () => {
+  try {
+    const token = sessionStorage.getItem('token');
+    const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/logout', {}, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    sessionStorage.clear();
+    
+    return response.data;
   } catch (error) {
     console.error("Erreur lors de l'envoi de la connexion :", error);
     throw error;

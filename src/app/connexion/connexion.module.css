@@ -1,0 +1,68 @@
+.connexionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+    font-family: Arial, sans-serif;
+  }
+  
+  .title {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #345c94;
+  }
+  
+  .statusMessage {
+    color: #d9534f;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .connexionForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  
+  .connexionForm label {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .connexionForm input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border 0.3s;
+  }
+  
+  .connexionForm input:focus {
+    border-color: #345c94;
+    outline: none;
+  }
+  
+  .connexionForm button {
+    padding: 10px;
+    background-color: #345c94;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .connexionForm button:hover {
+    background-color: #2a4c74;
+  }
